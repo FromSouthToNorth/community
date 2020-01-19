@@ -62,14 +62,15 @@ http://localhost:8887
 ## 脚本
 
 ```sql
-CREATE TABLE USER
-(
-    ID int AUTO_INCREMENT PRIMARY KEY NOT NULL,
-    ACCOUNT_ID VARCHAR(100),
-    NAME VARCHAR(50),
-    TOKEN VARCHAR(36),
-    GMT_CREATE BIGINT,
-    GMT_MODIFIED BIGINT
+CREATE DATABASE community;
+
+CREATE TABLE `user` (
+		id INT AUTO_INCREMENT PRIMARY KEY,
+		account_id VARCHAR(100),
+		`name` VARCHAR(50),
+		token CHAR(36),
+		gmt_create BIGINT,
+		gmt_modified BIGINT
 );
 ```
 
