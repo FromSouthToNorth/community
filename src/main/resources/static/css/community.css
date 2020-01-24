@@ -1,0 +1,42 @@
+body {
+    background-image: url(https://static.smartisanos.cn/account.common/img/v2/bg_9b9dcb65ff.png);
+    background-size: 100px;
+    background-repeat: repeat;
+}
+
+.main {
+    background-color: white;
+    margin: 30px 60px;
+    border-radius: 6px;
+}
+
+.main.dialog-shadow {
+    box-shadow: 0 9px 30px -6px rgba(0, 0, 0, .2), 0 18px 20px -10px rgba(0, 0, 0, .04), 0 18px 20px -10px rgba(0, 0, 0, .04), 0 10px 20px -10px rgba(0, 0, 0, .04);
+}
+
+.bnt-publish {
+    float: right;
+    margin-bottom: 16px;
+}
+
+.media-object {
+    width: 46px;
+}
+
+.text-desc {
+    font-size: 12px;
+    font-weight: normal;
+    color: #999;
+}
+
+.main .section {
+    margin-top: 16px;
+}
+
+.community-menu {
+    font-size: 13px;
+    color: #999;
+}
+
+
+
