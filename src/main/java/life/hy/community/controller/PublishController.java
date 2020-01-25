@@ -1,9 +1,9 @@
 package life.hy.community.controller;
 
 import life.hy.community.mapper.QuestionMapper;
-import life.hy.community.mapper.UserMapper;
 import life.hy.community.model.Question;
 import life.hy.community.model.User;
+import life.hy.community.service.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,23 +17,23 @@ import javax.servlet.http.HttpServletRequest;
 @Controller
 public class PublishController {
 
-    @GetMapping("/publish/{id}")
-    public String edit(@PathVariable(name = "id") Integer id,
-                       Model model) {
-
-        Question question = questionMapper.getById(id);
-        model.addAttribute("title", question.getTitle());
-        model.addAttribute("description", question.getDescription());
-        model.addAttribute("tag",question.getTag());
-
-        return "publish";
-    }
-
     @Autowired
     private QuestionMapper questionMapper;
 
     @Autowired
-    private UserMapper userMapper;
+    private QuestionService questionService;
+
+    @GetMapping("/publish/{id}")
+    public String edit(@PathVariable(name = "id") Integer id,
+                       Model model) {
+
+        Question question = questionMapper.selectByPrimaryKey(id);
+        model.addAttribute("title", question.getTitle());
+        model.addAttribute("description", question.getDescription());
+        model.addAttribute("tag",question.getTag());
+        model.addAttribute("id",question.getId());
+        return "publish";
+    }
 
     @GetMapping("/publish")
     public String publish() {
@@ -45,6 +45,7 @@ public class PublishController {
             @RequestParam(value = "title", required = false) String title,
             @RequestParam(value = "description", required = false) String description,
             @RequestParam(value = "tag", required = false) String tag,
+            @RequestParam(value = "id", required = false) Integer id,
             HttpServletRequest request,
             Model model) {
 
@@ -80,7 +81,8 @@ public class PublishController {
         question.setCreator(user.getId());
         question.setGmtCreate(System.currentTimeMillis());
         question.setGmtModified(question.getGmtCreate());
-        questionMapper.create(question);
+        question.setId(id);
+        questionService.createOrUpdate(question);
         return "redirect:/";
     }
 
