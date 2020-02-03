@@ -4,6 +4,13 @@ body {
     background-repeat: repeat;
 }
 
+a {
+    text-decoration:none !important;
+}
+a:hover {
+    color: #499ef3 !important;
+}
+
 .main {
     background-color: white;
     margin: 30px 60px;
@@ -23,6 +30,11 @@ body {
     width: 46px;
 }
 
+.media-body{
+    padding-top: 10px;
+}
+
+
 .text-desc {
     font-size: 12px;
     font-weight: normal;
@@ -36,7 +48,116 @@ body {
 .community-menu {
     font-size: 13px;
     color: #999;
+    margin-bottom: 12px;
 }
+
+.comment {
+    margin-top: 20px;
+}
+
+.media-body {
+    padding-top: 10px;
+}
+
+hr {
+    margin-top: 6px;
+}
+
+.media-body {
+    padding-top: 10px;
+}
+
+.mat {
+    padding-top: 16px;
+    margin-bottom:  12px
+}
+
+.question-title {
+    margin-top: 22px;
+}
+
+.publish-tag-tab {
+    display: none;
+    margin-top: 10px;
+}
+
+.question-related {
+    line-height: 20px;
+    font-size: 12px;
+    padding-left: 0;
+    list-style: none;
+}
+
+.question-related li a {
+    text-decoration:none;
+}
+
+.menu {
+    color: #999;
+    margin-top: 5px;
+}
+.menu .icon {
+    margin-right: 8px;
+    font-size: 15px;
+    cursor: pointer;
+}
+
+.menu .comment-icon.active {
+    color: #499ef3;
+}
+
+.collapse.the-secondary-comments {
+    margin: 6px 0 10px 0;
+    padding: 10px 0;
+    border: 1px solid rgb(238, 238, 238);
+    border-radius: 4px;
+}
+
+.sub-comment {
+    margin-top: 10px;
+}
+
+.menu .comment-icon {
+    cursor: pointer;
+}
+
+.menu .comment-icon:hover {
+    color: #499ef3;
+}
+
+.menu .icon:hover {
+    color: #499ef3;
+}
+
+.comments {
+    margin-bottom: 14px;
+    padding-bottom: 4px;
+    border-bottom: 1px solid rgb(238, 238, 238);
+}
+
+.the-secondary-comments .comments:last-child {
+    border-bottom: none;
+    margin-bottom: 4px;
+}
+
+.question-tags>span,
+.tab-pane>span {
+    margin-right: 5px;
+    margin-bottom: 5px;
+    cursor:pointer;
+    white-space: normal;
+    display: inline-block;
+}
+
+.tab-content .tab-pane {
+    padding: 12px;
+}
+
+
+
+
+
+
 
 
 

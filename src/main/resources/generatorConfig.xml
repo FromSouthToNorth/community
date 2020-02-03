@@ -32,9 +32,7 @@
             <property name="enableSubPackages" value="true" />
         </javaClientGenerator>
 
-        <table tableName="user" catalog="community" domainObjectName="User" >
-        </table>
-        <table tableName="question" catalog="community" domainObjectName="Question" >
+        <table tableName="notification" catalog="community" domainObjectName="Notification" >
         </table>
 
 

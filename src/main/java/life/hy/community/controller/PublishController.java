@@ -1,9 +1,11 @@
 package life.hy.community.controller;
 
+import life.hy.community.cache.TagCache;
 import life.hy.community.mapper.QuestionMapper;
 import life.hy.community.model.Question;
 import life.hy.community.model.User;
 import life.hy.community.service.QuestionService;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -32,11 +34,13 @@ public class PublishController {
         model.addAttribute("description", question.getDescription());
         model.addAttribute("tag",question.getTag());
         model.addAttribute("id",question.getId());
+        model.addAttribute("tags", TagCache.get());
         return "publish";
     }
 
     @GetMapping("/publish")
-    public String publish() {
+    public String publish(Model model) {
+        model.addAttribute("tags", TagCache.get());
         return "publish";
     }
 
@@ -48,11 +52,10 @@ public class PublishController {
             @RequestParam(value = "id", required = false) Integer id,
             HttpServletRequest request,
             Model model) {
-
-
         model.addAttribute("title", title);
         model.addAttribute("description", description);
         model.addAttribute("tag",tag);
+        model.addAttribute("tags", TagCache.get());
 
         if (title == null || title == "") {
             model.addAttribute("error","标题不能为空");
@@ -67,6 +70,11 @@ public class PublishController {
             return "publish";
         }
 
+        String invalid = TagCache.filterInvalid(tag);
+        if (StringUtils.isNoneBlank(invalid)) {
+            model.addAttribute("error","输入非法标签：" + invalid);
+            return "publish";
+        }
 
         User user = (User) request.getSession().getAttribute("user");
         if (user == null) {
@@ -82,6 +90,9 @@ public class PublishController {
         question.setGmtCreate(System.currentTimeMillis());
         question.setGmtModified(question.getGmtCreate());
         question.setId(id);
+        question.setViewCount(0);
+        question.setCommentCount(0);
+        question.setLikeCount(0);
         questionService.createOrUpdate(question);
         return "redirect:/";
     }

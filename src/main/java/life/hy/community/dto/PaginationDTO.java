@@ -10,6 +10,8 @@ public class PaginationDTO {
 
     private List<QuestionDTO> questions;
 
+    private List<NotificationDTO> notifications;
+
     private boolean showPrevious;
 
     private boolean showFirstPage;
@@ -23,7 +25,6 @@ public class PaginationDTO {
     private List<Integer> pages = new ArrayList<>();
 
     private Integer totalPage;
-
 
 
     public void setPagination(Integer totalPage, Integer page) {
