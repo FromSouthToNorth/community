@@ -49,7 +49,7 @@ public class CommentService {
             throw new CustomizeException(CustomizeErrorCode.TYPE_PARAM_WRONG);
         }
 
-        if (comment.getType() == CommentTypeEnum.COMMENT.getType()) {
+        if (comment.getType().equals(CommentTypeEnum.COMMENT.getType())) {
             // 回复评论
             Comment dbComment = commentMapper.selectByPrimaryKey(comment.getParentId());
             if (dbComment == null) {
@@ -113,27 +113,23 @@ public class CommentService {
         }
 
         // 获取去重的评论人
-        Set<Integer> commentators = comments.stream().
-                map(comment -> comment.getCommentator()).
-                collect(Collectors.toSet());
-        List<Integer> userIds = new ArrayList<>();
-        userIds.addAll(commentators);
+        List<Integer> userIds = comments.stream().
+                map(Comment::getCommentator).distinct().collect(Collectors.toList());
 
         // 获取评论人并转为 Map
         UserExample userExample = new UserExample();
         userExample.createCriteria().andIdIn(userIds);
         List<User> users = userMapper.selectByExample(userExample);
         Map<Integer, User> userMap = users.stream().
-                collect(Collectors.toMap(user -> user.getId(), user -> user));
+                collect(Collectors.toMap(User::getId, user -> user));
 
         // 传换 comment 为 commentDTO
-        List<CommentDTO> commentDTOS = comments.stream().map(comment -> {
+        return comments.stream().map(comment -> {
             CommentDTO commentDTO = new CommentDTO();
             BeanUtils.copyProperties(comment, commentDTO);
             commentDTO.setUser(userMap.get(comment.getCommentator()));
             return commentDTO;
         }).collect(Collectors.toList());
-        return commentDTOS;
     }
 }
 

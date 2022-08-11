@@ -29,7 +29,7 @@ public class NotificationService {
 
         PaginationDTO paginationDTO = new PaginationDTO();
 
-        Integer totalPage;
+        int totalPage;
         NotificationExample notificationExample = new NotificationExample();
         notificationExample.createCriteria().andReceiverEqualTo(userId);
         Integer totalCount = (int) notificationMapper.countByExample(notificationExample);
@@ -50,7 +50,7 @@ public class NotificationService {
 
         paginationDTO.setPagination(totalPage, page);
 
-        Integer offset = size * (page - 1);
+        int offset = size * (page - 1);
         if (offset < 0) {
             offset = 0;
         }

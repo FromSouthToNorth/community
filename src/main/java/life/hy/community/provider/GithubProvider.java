@@ -7,6 +7,7 @@ import okhttp3.*;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
+import java.util.Objects;
 
 @Component
 public class GithubProvider {
@@ -21,9 +22,8 @@ public class GithubProvider {
                 .post(body)
                 .build();
         try (Response response = client.newCall(request).execute()) {
-                String string = response.body().string();
-                String toKen = string.split("&")[0].split("=")[1];
-                return toKen;
+                String string = Objects.requireNonNull(response.body()).string();
+            return string.split("&")[0].split("=")[1];
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -37,9 +37,8 @@ public class GithubProvider {
                 .build();
         try {
             Response response = client.newCall(request).execute();
-            String string = response.body().string();
-            GithubUser githubUser = JSON.parseObject(string, GithubUser.class);
-            return githubUser;
+            String string = Objects.requireNonNull(response.body()).string();
+            return JSON.parseObject(string, GithubUser.class);
         } catch (IOException e) {
             e.printStackTrace();
         }
